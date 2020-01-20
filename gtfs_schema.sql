@@ -5,9 +5,9 @@
 # https://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 8.0.12)
+# Host: database-1.c2skpltdp2me.us-east-2.rds.amazonaws.com (MySQL 8.0.11)
 # Database: gtfs
-# Generation Time: 2020-01-10 18:50:14 +0000
+# Generation Time: 2020-01-20 02:50:20 +0000
 # ************************************************************
 
 
@@ -24,8 +24,6 @@ SET NAMES utf8mb4;
 # Dump of table agency
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `agency`;
-
 CREATE TABLE `agency` (
   `key` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `agency_id` varchar(255) DEFAULT NULL,
@@ -37,12 +35,12 @@ CREATE TABLE `agency` (
   KEY `feed_version` (`feed_version`),
   KEY `agency_id` (`agency_id`),
   CONSTRAINT `agency_ibfk_1` FOREIGN KEY (`feed_version`) REFERENCES `feed_version` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `agency_version_id_trigger` BEFORE INSERT ON `agency` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `agency_version_id_trigger` BEFORE INSERT ON `agency` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -55,8 +53,6 @@ DELIMITER ;
 
 # Dump of table feed
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `feed`;
 
 CREATE TABLE `feed` (
   `id` varchar(255) NOT NULL DEFAULT '',
@@ -71,8 +67,6 @@ CREATE TABLE `feed` (
 
 # Dump of table feed_version
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `feed_version`;
 
 CREATE TABLE `feed_version` (
   `id` varchar(255) NOT NULL DEFAULT '',
@@ -93,8 +87,6 @@ CREATE TABLE `feed_version` (
 # Dump of table frequency
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `frequency`;
-
 CREATE TABLE `frequency` (
   `trip_id` varchar(128) NOT NULL DEFAULT '',
   `start_time` time NOT NULL,
@@ -112,7 +104,7 @@ CREATE TABLE `frequency` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `frequency_version_id_trigger` BEFORE INSERT ON `frequency` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `frequency_version_id_trigger` BEFORE INSERT ON `frequency` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -125,8 +117,6 @@ DELIMITER ;
 
 # Dump of table route
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `route`;
 
 CREATE TABLE `route` (
   `route_id` varchar(128) NOT NULL DEFAULT '',
@@ -151,7 +141,7 @@ CREATE TABLE `route` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `route_version_id_trigger` BEFORE INSERT ON `route` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `route_version_id_trigger` BEFORE INSERT ON `route` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -164,8 +154,6 @@ DELIMITER ;
 
 # Dump of table service
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `service`;
 
 CREATE TABLE `service` (
   `service_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT 'calendar.txt',
@@ -188,7 +176,7 @@ CREATE TABLE `service` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `service_version_id_trigger` BEFORE INSERT ON `service` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `service_version_id_trigger` BEFORE INSERT ON `service` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -201,8 +189,6 @@ DELIMITER ;
 
 # Dump of table service_exception
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `service_exception`;
 
 CREATE TABLE `service_exception` (
   `service_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'calendar_dates.txt',
@@ -218,7 +204,7 @@ CREATE TABLE `service_exception` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `service_exception_version_id_trigger` BEFORE INSERT ON `service_exception` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `service_exception_version_id_trigger` BEFORE INSERT ON `service_exception` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -231,8 +217,6 @@ DELIMITER ;
 
 # Dump of table shape
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `shape`;
 
 CREATE TABLE `shape` (
   `shape_id` varchar(128) NOT NULL DEFAULT '',
@@ -250,7 +234,7 @@ CREATE TABLE `shape` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `shape_version_id_trigger` BEFORE INSERT ON `shape` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `shape_version_id_trigger` BEFORE INSERT ON `shape` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -263,8 +247,6 @@ DELIMITER ;
 
 # Dump of table stop
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `stop`;
 
 CREATE TABLE `stop` (
   `stop_id` varchar(128) NOT NULL DEFAULT '',
@@ -288,7 +270,7 @@ CREATE TABLE `stop` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `stop_version_id_trigger` BEFORE INSERT ON `stop` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `stop_version_id_trigger` BEFORE INSERT ON `stop` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -302,12 +284,10 @@ DELIMITER ;
 # Dump of table stop_time
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `stop_time`;
-
 CREATE TABLE `stop_time` (
   `trip_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `arrival_time` time DEFAULT NULL,
-  `departure_time` time DEFAULT NULL,
+  `arrival_time` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `departure_time` char(8) DEFAULT NULL,
   `stop_id` varchar(128) NOT NULL DEFAULT '',
   `stop_sequence` int(10) unsigned NOT NULL,
   `stop_headsign` varchar(64) DEFAULT NULL,
@@ -326,7 +306,7 @@ CREATE TABLE `stop_time` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `stop_time_version_id_trigger` BEFORE INSERT ON `stop_time` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `stop_time_version_id_trigger` BEFORE INSERT ON `stop_time` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
@@ -339,8 +319,6 @@ DELIMITER ;
 
 # Dump of table trip
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `trip`;
 
 CREATE TABLE `trip` (
   `route_id` varchar(128) NOT NULL DEFAULT '',
@@ -369,7 +347,7 @@ CREATE TABLE `trip` (
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `trip_version_id_trigger` BEFORE INSERT ON `trip` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER=`admin`@`%` */ /*!50003 TRIGGER `trip_version_id_trigger` BEFORE INSERT ON `trip` FOR EACH ROW begin
 declare feed_id varchar(255);
 
 select id into feed_id from feed_version where inserted = (select max(inserted) from feed_version);
