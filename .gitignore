@@ -1,0 +1,12 @@
+pom.xml
+.idea
+access.txt
+mexico.zip
+muni.zip
+mexico/*
+muni/*
+unzipped_examples/*
+/ruby.zip
+*.zip
+/target/
+/out/artifacts/TransitFetch_jar/
