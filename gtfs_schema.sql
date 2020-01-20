@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.12)
 # Database: gtfs
-# Generation Time: 2020-01-04 23:18:55 +0000
+# Generation Time: 2020-01-10 18:50:14 +0000
 # ************************************************************
 
 
@@ -37,7 +37,7 @@ CREATE TABLE `agency` (
   KEY `feed_version` (`feed_version`),
   KEY `agency_id` (`agency_id`),
   CONSTRAINT `agency_ibfk_1` FOREIGN KEY (`feed_version`) REFERENCES `feed_version` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 DELIMITER ;;
@@ -63,6 +63,7 @@ CREATE TABLE `feed` (
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'gtfs',
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   `location` int(11) NOT NULL,
+  `latest` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -345,7 +346,7 @@ CREATE TABLE `trip` (
   `route_id` varchar(128) NOT NULL DEFAULT '',
   `service_id` varchar(128) NOT NULL DEFAULT '',
   `trip_id` varchar(128) NOT NULL DEFAULT '',
-  `trip_headsign` varchar(64) DEFAULT NULL,
+  `trip_headsign` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `trip_short_name` varchar(128) DEFAULT '',
   `direction_id` tinyint(11) DEFAULT NULL,
   `block_id` varchar(128) DEFAULT NULL,
