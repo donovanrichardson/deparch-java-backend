@@ -43,8 +43,8 @@ public class AppController implements GTFSController {
         this.dbuser = dbuser;
         this.dbpass = dbpass;
         this.apiKey = apiKey;
-//        String host = "database-1.c2skpltdp2me.us-east-2.rds.amazonaws.com";
-        String host = "localhost";
+        String host = "database-1.c2skpltdp2me.us-east-2.rds.amazonaws.com";
+//        String host = "localhost";
 //        System.out.println(this.dbuser);
 //        System.out.println(this.dbpass);
 //        System.out.println(this.apiKey);

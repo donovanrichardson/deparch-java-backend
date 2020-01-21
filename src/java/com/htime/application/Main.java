@@ -21,10 +21,10 @@ public class Main {
         String user = s.nextLine();
         System.out.println("provide db password");//todo what if incorrect credentials
         String pass = s.nextLine();
-
+        DSLContext dsl = null;
         try{
             GTFSController ac = new AppController(user, pass, "f700defc-6fcc-4c3f-9045-5ac5e91d7623");
-            DSLContext dsl = ((AppController) ac).dsl; //todo lol this casting is wild, just make a method
+            dsl = ((AppController) ac).dsl; //todo lol this casting is wild, just make a method
             while(true){
                 System.out.println("press n for new feed, t for timetable, or q for quit");
                 String option = s.nextLine();
@@ -61,11 +61,15 @@ public class Main {
                     continue; //superfluous code
                 }
             }
-            s.close();
         }catch (SQLException | IOException e){
+            e.printStackTrace();
+        }catch(Exception e){
             e.printStackTrace();
         }finally{
             s.close();
+            if (dsl != null){
+                dsl.close();
+            }
         }
 
     }
