@@ -9,8 +9,8 @@ import com.schema.tables.Stop;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.Record1;
 import org.jooq.Record11;
+import org.jooq.Record2;
 import org.jooq.Row11;
 import org.jooq.impl.UpdatableRecordImpl;
 import org.jooq.types.UByte;
@@ -29,7 +29,7 @@ import org.jooq.types.UByte;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class StopRecord extends UpdatableRecordImpl<StopRecord> implements Record11<String, String, String, String, Double, Double, String, UByte, String, Byte, String> {
 
-    private static final long serialVersionUID = -624987176;
+    private static final long serialVersionUID = 230814418;
 
     /**
      * Setter for <code>gtfs.stop.stop_id</code>.
@@ -193,8 +193,8 @@ public class StopRecord extends UpdatableRecordImpl<StopRecord> implements Recor
      * {@inheritDoc}
      */
     @Override
-    public Record1<String> key() {
-        return (Record1) super.key();
+    public Record2<String, String> key() {
+        return (Record2) super.key();
     }
 
     // -------------------------------------------------------------------------

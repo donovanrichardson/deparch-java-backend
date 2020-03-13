@@ -41,7 +41,7 @@ import org.jooq.types.UByte;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Stop extends TableImpl<StopRecord> {
 
-    private static final long serialVersionUID = 775703565;
+    private static final long serialVersionUID = -846795232;
 
     /**
      * The reference instance of <code>gtfs.stop</code>
@@ -157,7 +157,7 @@ public class Stop extends TableImpl<StopRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.STOP_PARENT_STATION, Indexes.STOP_PRIMARY, Indexes.STOP_STOP_FEED_VERSION_FK);
+        return Arrays.<Index>asList(Indexes.STOP_PARENT_STATION, Indexes.STOP_PRIMARY, Indexes.STOP_STOP_FEED_VERSION_FK, Indexes.STOP_STOP_NAME);
     }
 
     /**
@@ -181,11 +181,7 @@ public class Stop extends TableImpl<StopRecord> {
      */
     @Override
     public List<ForeignKey<StopRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<StopRecord, ?>>asList(Keys.STOP_IBFK_1, Keys.STOP_FEED_VERSION_FK);
-    }
-
-    public com.schema.tables.Stop stop() {
-        return new com.schema.tables.Stop(this, Keys.STOP_IBFK_1);
+        return Arrays.<ForeignKey<StopRecord, ?>>asList(Keys.STOP_FEED_VERSION_FK);
     }
 
     public FeedVersion feedVersion() {

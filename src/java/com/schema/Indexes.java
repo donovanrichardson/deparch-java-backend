@@ -64,6 +64,7 @@ public class Indexes {
     public static final Index STOP_PARENT_STATION = Indexes0.STOP_PARENT_STATION;
     public static final Index STOP_PRIMARY = Indexes0.STOP_PRIMARY;
     public static final Index STOP_STOP_FEED_VERSION_FK = Indexes0.STOP_STOP_FEED_VERSION_FK;
+    public static final Index STOP_STOP_NAME = Indexes0.STOP_STOP_NAME;
     public static final Index STOP_TIME_PRIMARY = Indexes0.STOP_TIME_PRIMARY;
     public static final Index STOP_TIME_STOP_ID = Indexes0.STOP_TIME_STOP_ID;
     public static final Index STOP_TIME_STOP_TIME_FEED_VERSION_FK = Indexes0.STOP_TIME_STOP_TIME_FEED_VERSION_FK;
@@ -101,8 +102,9 @@ public class Indexes {
         public static Index SHAPE_SHAPE_FEED_VERSION_FK = Internal.createIndex("shape_feed_version_fk", Shape.SHAPE, new OrderField[] { Shape.SHAPE.FEED_VERSION }, false);
         public static Index SHAPE_SHAPE_ID = Internal.createIndex("shape_id", Shape.SHAPE, new OrderField[] { Shape.SHAPE.SHAPE_ID }, false);
         public static Index STOP_PARENT_STATION = Internal.createIndex("parent_station", Stop.STOP, new OrderField[] { Stop.STOP.PARENT_STATION }, false);
-        public static Index STOP_PRIMARY = Internal.createIndex("PRIMARY", Stop.STOP, new OrderField[] { Stop.STOP.STOP_ID }, true);
+        public static Index STOP_PRIMARY = Internal.createIndex("PRIMARY", Stop.STOP, new OrderField[] { Stop.STOP.STOP_ID, Stop.STOP.FEED_VERSION }, true);
         public static Index STOP_STOP_FEED_VERSION_FK = Internal.createIndex("stop_feed_version_fk", Stop.STOP, new OrderField[] { Stop.STOP.FEED_VERSION }, false);
+        public static Index STOP_STOP_NAME = Internal.createIndex("stop_name", Stop.STOP, new OrderField[] { Stop.STOP.STOP_NAME }, false);
         public static Index STOP_TIME_PRIMARY = Internal.createIndex("PRIMARY", StopTime.STOP_TIME, new OrderField[] { StopTime.STOP_TIME.TRIP_ID, StopTime.STOP_TIME.STOP_SEQUENCE, StopTime.STOP_TIME.FEED_VERSION }, true);
         public static Index STOP_TIME_STOP_ID = Internal.createIndex("stop_id", StopTime.STOP_TIME, new OrderField[] { StopTime.STOP_TIME.STOP_ID }, false);
         public static Index STOP_TIME_STOP_TIME_FEED_VERSION_FK = Internal.createIndex("stop_time_feed_version_fk", StopTime.STOP_TIME, new OrderField[] { StopTime.STOP_TIME.FEED_VERSION }, false);

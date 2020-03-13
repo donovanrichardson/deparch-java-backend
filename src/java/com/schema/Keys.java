@@ -78,20 +78,14 @@ public class Keys {
 
     public static final ForeignKey<AgencyRecord, FeedVersionRecord> AGENCY_IBFK_1 = ForeignKeys0.AGENCY_IBFK_1;
     public static final ForeignKey<FeedVersionRecord, FeedRecord> FEED_VERSION_IBFK_1 = ForeignKeys0.FEED_VERSION_IBFK_1;
-    public static final ForeignKey<FrequencyRecord, TripRecord> FREQUENCY_IBFK_1 = ForeignKeys0.FREQUENCY_IBFK_1;
     public static final ForeignKey<FrequencyRecord, FeedVersionRecord> FREQUENCY_FEED_VERSION_FK = ForeignKeys0.FREQUENCY_FEED_VERSION_FK;
     public static final ForeignKey<RouteRecord, FeedVersionRecord> ROUTE_FEED_VERSION_FK = ForeignKeys0.ROUTE_FEED_VERSION_FK;
     public static final ForeignKey<ServiceRecord, FeedVersionRecord> SERVICE_FEED_VERSION_FK = ForeignKeys0.SERVICE_FEED_VERSION_FK;
-    public static final ForeignKey<ServiceExceptionRecord, ServiceRecord> SERVICE_EXCEPTION_IBFK_1 = ForeignKeys0.SERVICE_EXCEPTION_IBFK_1;
     public static final ForeignKey<ServiceExceptionRecord, FeedVersionRecord> SERVICE_EXCEPTION_FEED_VERSION_FK = ForeignKeys0.SERVICE_EXCEPTION_FEED_VERSION_FK;
     public static final ForeignKey<ShapeRecord, FeedVersionRecord> SHAPE_FEED_VERSION_FK = ForeignKeys0.SHAPE_FEED_VERSION_FK;
-    public static final ForeignKey<StopRecord, StopRecord> STOP_IBFK_1 = ForeignKeys0.STOP_IBFK_1;
     public static final ForeignKey<StopRecord, FeedVersionRecord> STOP_FEED_VERSION_FK = ForeignKeys0.STOP_FEED_VERSION_FK;
-    public static final ForeignKey<StopTimeRecord, StopRecord> STOP_TIME_IBFK_1 = ForeignKeys0.STOP_TIME_IBFK_1;
+    public static final ForeignKey<StopTimeRecord, TripRecord> STOP_TIME_IBFK_1 = ForeignKeys0.STOP_TIME_IBFK_1;
     public static final ForeignKey<StopTimeRecord, FeedVersionRecord> STOP_TIME_FEED_VERSION_FK = ForeignKeys0.STOP_TIME_FEED_VERSION_FK;
-    public static final ForeignKey<TripRecord, RouteRecord> TRIP_IBFK_1 = ForeignKeys0.TRIP_IBFK_1;
-    public static final ForeignKey<TripRecord, ServiceRecord> TRIP_IBFK_2 = ForeignKeys0.TRIP_IBFK_2;
-    public static final ForeignKey<TripRecord, ShapeRecord> TRIP_IBFK_3 = ForeignKeys0.TRIP_IBFK_3;
     public static final ForeignKey<TripRecord, FeedVersionRecord> TRIP_FEED_VERSION_FK = ForeignKeys0.TRIP_FEED_VERSION_FK;
 
     // -------------------------------------------------------------------------
@@ -111,7 +105,7 @@ public class Keys {
         public static final UniqueKey<ServiceRecord> KEY_SERVICE_PRIMARY = Internal.createUniqueKey(Service.SERVICE, "KEY_service_PRIMARY", Service.SERVICE.SERVICE_ID, Service.SERVICE.FEED_VERSION);
         public static final UniqueKey<ServiceExceptionRecord> KEY_SERVICE_EXCEPTION_PRIMARY = Internal.createUniqueKey(ServiceException.SERVICE_EXCEPTION, "KEY_service_exception_PRIMARY", ServiceException.SERVICE_EXCEPTION.SERVICE_ID, ServiceException.SERVICE_EXCEPTION.DATE, ServiceException.SERVICE_EXCEPTION.FEED_VERSION);
         public static final UniqueKey<ShapeRecord> KEY_SHAPE_PRIMARY = Internal.createUniqueKey(Shape.SHAPE, "KEY_shape_PRIMARY", Shape.SHAPE.SHAPE_ID, Shape.SHAPE.FEED_VERSION, Shape.SHAPE.SHAPE_PT_SEQUENCE);
-        public static final UniqueKey<StopRecord> KEY_STOP_PRIMARY = Internal.createUniqueKey(Stop.STOP, "KEY_stop_PRIMARY", Stop.STOP.STOP_ID);
+        public static final UniqueKey<StopRecord> KEY_STOP_PRIMARY = Internal.createUniqueKey(Stop.STOP, "KEY_stop_PRIMARY", Stop.STOP.STOP_ID, Stop.STOP.FEED_VERSION);
         public static final UniqueKey<StopTimeRecord> KEY_STOP_TIME_PRIMARY = Internal.createUniqueKey(StopTime.STOP_TIME, "KEY_stop_time_PRIMARY", StopTime.STOP_TIME.TRIP_ID, StopTime.STOP_TIME.STOP_SEQUENCE, StopTime.STOP_TIME.FEED_VERSION);
         public static final UniqueKey<TripRecord> KEY_TRIP_PRIMARY = Internal.createUniqueKey(Trip.TRIP, "KEY_trip_PRIMARY", Trip.TRIP.TRIP_ID, Trip.TRIP.FEED_VERSION);
     }
@@ -119,20 +113,14 @@ public class Keys {
     private static class ForeignKeys0 {
         public static final ForeignKey<AgencyRecord, FeedVersionRecord> AGENCY_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Agency.AGENCY, "agency_ibfk_1", Agency.AGENCY.FEED_VERSION);
         public static final ForeignKey<FeedVersionRecord, FeedRecord> FEED_VERSION_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_FEED_PRIMARY, FeedVersion.FEED_VERSION, "feed_version_ibfk_1", FeedVersion.FEED_VERSION.FEED);
-        public static final ForeignKey<FrequencyRecord, TripRecord> FREQUENCY_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_TRIP_PRIMARY, Frequency.FREQUENCY, "frequency_ibfk_1", Frequency.FREQUENCY.TRIP_ID);
         public static final ForeignKey<FrequencyRecord, FeedVersionRecord> FREQUENCY_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Frequency.FREQUENCY, "frequency_feed_version_fk", Frequency.FREQUENCY.FEED_VERSION);
         public static final ForeignKey<RouteRecord, FeedVersionRecord> ROUTE_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Route.ROUTE, "route_feed_version_fk", Route.ROUTE.FEED_VERSION);
         public static final ForeignKey<ServiceRecord, FeedVersionRecord> SERVICE_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Service.SERVICE, "service_feed_version_fk", Service.SERVICE.FEED_VERSION);
-        public static final ForeignKey<ServiceExceptionRecord, ServiceRecord> SERVICE_EXCEPTION_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_SERVICE_PRIMARY, ServiceException.SERVICE_EXCEPTION, "service_exception_ibfk_1", ServiceException.SERVICE_EXCEPTION.SERVICE_ID);
         public static final ForeignKey<ServiceExceptionRecord, FeedVersionRecord> SERVICE_EXCEPTION_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, ServiceException.SERVICE_EXCEPTION, "service_exception_feed_version_fk", ServiceException.SERVICE_EXCEPTION.FEED_VERSION);
         public static final ForeignKey<ShapeRecord, FeedVersionRecord> SHAPE_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Shape.SHAPE, "shape_feed_version_fk", Shape.SHAPE.FEED_VERSION);
-        public static final ForeignKey<StopRecord, StopRecord> STOP_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_STOP_PRIMARY, Stop.STOP, "stop_ibfk_1", Stop.STOP.PARENT_STATION);
         public static final ForeignKey<StopRecord, FeedVersionRecord> STOP_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Stop.STOP, "stop_feed_version_fk", Stop.STOP.FEED_VERSION);
-        public static final ForeignKey<StopTimeRecord, StopRecord> STOP_TIME_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_STOP_PRIMARY, StopTime.STOP_TIME, "stop_time_ibfk_1", StopTime.STOP_TIME.STOP_ID);
+        public static final ForeignKey<StopTimeRecord, TripRecord> STOP_TIME_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_TRIP_PRIMARY, StopTime.STOP_TIME, "stop_time_ibfk_1", StopTime.STOP_TIME.TRIP_ID);
         public static final ForeignKey<StopTimeRecord, FeedVersionRecord> STOP_TIME_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, StopTime.STOP_TIME, "stop_time_feed_version_fk", StopTime.STOP_TIME.FEED_VERSION);
-        public static final ForeignKey<TripRecord, RouteRecord> TRIP_IBFK_1 = Internal.createForeignKey(com.schema.Keys.KEY_ROUTE_PRIMARY, Trip.TRIP, "trip_ibfk_1", Trip.TRIP.ROUTE_ID);
-        public static final ForeignKey<TripRecord, ServiceRecord> TRIP_IBFK_2 = Internal.createForeignKey(com.schema.Keys.KEY_SERVICE_PRIMARY, Trip.TRIP, "trip_ibfk_2", Trip.TRIP.SERVICE_ID);
-        public static final ForeignKey<TripRecord, ShapeRecord> TRIP_IBFK_3 = Internal.createForeignKey(com.schema.Keys.KEY_SHAPE_PRIMARY, Trip.TRIP, "trip_ibfk_3", Trip.TRIP.SHAPE_ID);
         public static final ForeignKey<TripRecord, FeedVersionRecord> TRIP_FEED_VERSION_FK = Internal.createForeignKey(com.schema.Keys.KEY_FEED_VERSION_PRIMARY, Trip.TRIP, "trip_feed_version_fk", Trip.TRIP.FEED_VERSION);
     }
 }

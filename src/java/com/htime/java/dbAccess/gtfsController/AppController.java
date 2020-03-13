@@ -2,6 +2,7 @@ package com.htime.java.dbAccess.gtfsController;
 
 import com.mysql.cj.jdbc.ConnectionImpl;
 import com.schema.tables.FeedVersion;
+import com.schema.tables.Stop;
 import com.schema.tables.records.FeedRecord;
 import com.schema.tables.records.FeedVersionRecord;
 import com.htime.java.dbAccess.feedQuery.FeedQuery;
@@ -11,6 +12,7 @@ import com.schema.tables.records.RouteRecord;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.DefaultConfiguration;
+import org.jooq.types.UByte;
 import org.jooq.types.ULong;
 import org.json.JSONObject;
 import org.jsoup.Connection;
@@ -112,6 +114,20 @@ public class AppController implements GTFSController {
                 stopUpdate.execute();
                 UpdateConditionStep feedUpdate = this.dsl.update(FEED).set(FEED.LATEST, versionId).where(FEED.ID.eq(feedId));
                 feedUpdate.execute();
+//                UPDATE `stop`
+//SET stop.parent_station = stop.stop_id
+//WHERE stop.parent_station is null;
+                UpdateConditionStep nullToSelf = this.dsl.update(STOP).set(STOP.PARENT_STATION, STOP.STOP_ID).where(STOP.PARENT_STATION.isNull());
+                nullToSelf.execute();
+
+                //UPDATE `stop`
+                //left join `stop` as parent_stop ON stop.parent_station = parent_stop.stop_id
+                //SET stop.parent_station = parent_stop.parent_station
+                //WHERE stop.location_type = 4;
+                Stop parent = STOP.as("parent");
+                UpdateConditionStep boardingAreaToStation = this.dsl.update(STOP.leftJoin(parent).on(STOP.PARENT_STATION.eq(parent.STOP_ID))).set(STOP.PARENT_STATION, parent.PARENT_STATION).where(STOP.LOCATION_TYPE.eq(UByte.valueOf(4)));
+                boardingAreaToStation.execute();
+
             } catch (IOException e){
                 this.dsl.deleteFrom(FEED_VERSION).where(FEED_VERSION.ID.eq(versionId)).execute();
                 e.printStackTrace();
